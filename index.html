@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matthew Chiu - Product Manager</title>
+    <title>Matthew Chiu</title>
     <style>
         /* Base styles */
         :root {
-            --background: #0f172a;
+            --background: #0f0f0f;
             --text: #ffffff;
-            --accent: #38bdf8;
-            --secondary: #1e293b;
+            --accent: #f4ff83;
+            --secondary: #323232;
             --transition: 0.5s ease;
         }
         
@@ -66,7 +66,6 @@
         .header-content {
             display: flex;
             flex-direction: column;
-            max-width: 800px;
         }
         
         .name {
@@ -78,15 +77,8 @@
         .title {
             font-size: 2vw;
             font-weight: 400;
-            margin-bottom: 3vh;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .intro-text {
-            font-size: 1.2rem;
-            line-height: 1.8;
             margin-bottom: 5vh;
-            max-width: 600px;
+            color: rgba(255, 255, 255, 0.7);
         }
         
         /* Navigation */
@@ -199,37 +191,42 @@
             position: relative;
             overflow: hidden;
             height: 60vh;
-            background-color: var(--secondary);
-            border-radius: 10px;
         }
         
         .project-image {
             width: 100%;
-            height: 60%;
+            height: 100%;
             object-fit: cover;
             transition: transform 1s ease;
         }
         
         .project-content {
-            padding: 25px;
-            height: 40%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            transform: translateY(100%);
+            transition: transform var(--transition);
+        }
+        
+        .project-item:hover .project-content {
+            transform: translateY(0);
+        }
+        
+        .project-item:hover .project-image {
+            transform: scale(1.05);
         }
         
         .project-title {
             font-size: 1.5rem;
             margin-bottom: 10px;
-            color: var(--accent);
         }
         
         .project-category {
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 15px;
-        }
-        
-        .project-description {
-            font-size: 1rem;
-            line-height: 1.6;
+            color: var(--accent);
             margin-bottom: 15px;
         }
         
@@ -258,7 +255,7 @@
         .skill-category {
             background-color: var(--secondary);
             padding: 30px;
-            border-radius: 10px;
+            border-radius: 5px;
             transition: transform var(--transition);
         }
         
@@ -283,113 +280,6 @@
         
         .skill-list li:last-child {
             border-bottom: none;
-        }
-        
-        /* Approach section */
-        .approach-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-        
-        .approach-item {
-            background-color: var(--secondary);
-            padding: 30px;
-            border-radius: 10px;
-            transition: transform var(--transition);
-        }
-        
-        .approach-item:hover {
-            transform: translateY(-10px);
-        }
-        
-        .approach-icon {
-            font-size: 2rem;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-        
-        .approach-title {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-        }
-        
-        .approach-text {
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-        
-        /* Timeline section */
-        .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background-color: var(--secondary);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-        }
-        
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-        
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-        
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-        
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            top: 15px;
-            z-index: 1;
-        }
-        
-        .timeline-item:nth-child(odd)::after {
-            right: -13px;
-        }
-        
-        .timeline-item:nth-child(even)::after {
-            left: -13px;
-        }
-        
-        .timeline-content {
-            padding: 20px 30px;
-            background-color: var(--secondary);
-            position: relative;
-            border-radius: 10px;
-        }
-        
-        .timeline-date {
-            font-weight: bold;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-        
-        .timeline-title {
-            margin-bottom: 10px;
-        }
-        
-        .timeline-text {
-            line-height: 1.6;
         }
         
         /* Contact section */
@@ -431,7 +321,7 @@
         .contact-form {
             padding: 30px;
             background-color: var(--secondary);
-            border-radius: 10px;
+            border-radius: 5px;
         }
         
         .form-group {
@@ -448,12 +338,12 @@
         .form-textarea {
             width: 100%;
             padding: 15px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: var(--text);
             font-size: 1rem;
             font-family: inherit;
-            border-radius: 5px;
+            border-radius: 3px;
             transition: border-color var(--transition);
         }
         
@@ -471,69 +361,19 @@
         .submit-btn {
             display: inline-block;
             padding: 15px 30px;
-            background-color: var(--accent);
-            color: var(--background);
-            border: none;
+            background-color: transparent;
+            color: var(--text);
+            border: 1px solid var(--text);
             font-size: 1rem;
             font-weight: 500;
-            border-radius: 5px;
             cursor: pointer;
             transition: all var(--transition);
         }
         
         .submit-btn:hover {
-            background-color: var(--text);
-        }
-        
-        /* Testimonials section */
-        .testimonials-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .testimonial-item {
-            background-color: var(--secondary);
-            padding: 40px;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .testimonial-quote {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 15px;
-        }
-        
-        .testimonial-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .testimonial-position {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-        
-        .quote-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2rem;
-            color: rgba(255, 255, 255, 0.1);
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--background);
         }
         
         /* Footer */
@@ -612,28 +452,8 @@
             .about-content,
             .projects-grid,
             .skills-container,
-            .approach-grid,
             .contact-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .timeline::after {
-                left: 31px;
-            }
-            
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-            
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-            
-            .timeline-item:nth-child(odd)::after,
-            .timeline-item:nth-child(even)::after {
-                left: 18px;
             }
             
             .about-image {
@@ -641,11 +461,7 @@
             }
             
             .project-item {
-                height: auto;
-            }
-            
-            .project-image {
-                height: 200px;
+                height: 40vh;
             }
         }
         
@@ -676,6 +492,11 @@
             * {
                 cursor: auto !important;
             }
+            
+            .project-content {
+                transform: translateY(0);
+                opacity: 0.9;
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -695,11 +516,8 @@
                 <a href="#" class="logo">MATTHEW CHIU</a>
                 <div class="nav-links">
                     <a href="#about" class="nav-link">About</a>
-                    <a href="#work" class="nav-link">Case Studies</a>
+                    <a href="#work" class="nav-link">Work</a>
                     <a href="#skills" class="nav-link">Skills</a>
-                    <a href="#approach" class="nav-link">Approach</a>
-                    <a href="#experience" class="nav-link">Experience</a>
-                    <a href="#testimonials" class="nav-link">Testimonials</a>
                     <a href="#contact" class="nav-link">Contact</a>
                 </div>
             </div>
@@ -711,9 +529,8 @@
         <div class="container">
             <div class="header-content reveal">
                 <h1 class="name">Matthew Chiu</h1>
-                <p class="title">Product Manager & Strategy Consultant</p>
-                <p class="intro-text">I help teams build exceptional products that solve real problems and deliver measurable business outcomes. With a data-driven approach and user-centered philosophy, I transform visions into market-ready solutions.</p>
-                <a href="#work" class="project-link">View Case Studies</a>
+                <p class="title">Web Developer & Designer</p>
+                <a href="#work" class="project-link">View My Work</a>
             </div>
         </div>
     </header>
@@ -724,9 +541,9 @@
             <h2 class="section-title reveal">About Me</h2>
             <div class="about-content">
                 <div class="about-text reveal">
-                    <p>Hello! I'm Matthew, a passionate product manager with expertise in guiding products from conception to market success. I specialize in translating business goals and user needs into product roadmaps that deliver meaningful impact.</p>
-                    <p>With a background in both business strategy and user experience design, I bring a holistic approach to product management. I thrive at the intersection of business, technology, and design, ensuring all three dimensions are balanced in product development.</p>
-                    <p>I'm known for my ability to define clear product visions, prioritize effectively, coordinate cross-functional teams, and continuously iterate based on data and user insights. Whether working on consumer applications or enterprise solutions, I focus on creating products that users love while meeting business objectives.</p>
+                    <p>Hello! I'm Matthew, a passionate web developer and designer with a focus on creating beautiful, functional digital experiences that leave a lasting impression.</p>
+                    <p>I specialize in building modern, responsive websites and web applications that combine thoughtful design with clean, efficient code. My approach is driven by a dedication to both aesthetics and performance.</p>
+                    <p>With expertise in both design and development, I bring a unique perspective to each project, ensuring a seamless connection between visual concepts and technical implementation.</p>
                 </div>
                 <div class="about-image reveal">
                     <img src="/api/placeholder/600/800" alt="Matthew Chiu">
@@ -735,52 +552,48 @@
         </div>
     </section>
     
-    <!-- Work section (Case Studies) -->
+    <!-- Work section -->
     <section id="work">
         <div class="container">
-            <h2 class="section-title reveal">Case Studies</h2>
+            <h2 class="section-title reveal">Selected Work</h2>
             <div class="projects-grid">
-                <!-- Case Study 1 -->
+                <!-- Project 1 -->
                 <div class="project-item reveal">
-                    <img src="/api/placeholder/800/400" alt="Project 1" class="project-image">
+                    <img src="/api/placeholder/800/900" alt="Project 1" class="project-image">
                     <div class="project-content">
-                        <h3 class="project-title">FinTech Payment Platform</h3>
-                        <p class="project-category">Product Strategy • UX Design • Market Launch</p>
-                        <p class="project-description">Led the development of a mobile payment solution that increased user engagement by 47% and processed over $10M in transactions within first quarter.</p>
-                        <a href="#" class="project-link">View Case Study</a>
+                        <h3 class="project-title">Project One</h3>
+                        <p class="project-category">Web Development / UI Design</p>
+                        <a href="#" class="project-link">View Project</a>
                     </div>
                 </div>
                 
-                <!-- Case Study 2 -->
+                <!-- Project 2 -->
                 <div class="project-item reveal">
-                    <img src="/api/placeholder/800/400" alt="Project 2" class="project-image">
+                    <img src="/api/placeholder/800/900" alt="Project 2" class="project-image">
                     <div class="project-content">
-                        <h3 class="project-title">Enterprise SaaS Optimization</h3>
-                        <p class="project-category">Product Management • Analytics • Growth</p>
-                        <p class="project-description">Revitalized an underperforming SaaS product by implementing a new pricing strategy and feature set that reduced churn by 32% and increased MRR by 28%.</p>
-                        <a href="#" class="project-link">View Case Study</a>
+                        <h3 class="project-title">Project Two</h3>
+                        <p class="project-category">Frontend Development</p>
+                        <a href="#" class="project-link">View Project</a>
                     </div>
                 </div>
                 
-                <!-- Case Study 3 -->
+                <!-- Project 3 -->
                 <div class="project-item reveal">
-                    <img src="/api/placeholder/800/400" alt="Project 3" class="project-image">
+                    <img src="/api/placeholder/800/900" alt="Project 3" class="project-image">
                     <div class="project-content">
-                        <h3 class="project-title">Healthcare Patient Portal</h3>
-                        <p class="project-category">User Research • Product Development • Compliance</p>
-                        <p class="project-description">Managed the redesign of a patient portal that improved satisfaction scores by 52% while ensuring HIPAA compliance and integrating with legacy systems.</p>
-                        <a href="#" class="project-link">View Case Study</a>
+                        <h3 class="project-title">Project Three</h3>
+                        <p class="project-category">Web Design / UX</p>
+                        <a href="#" class="project-link">View Project</a>
                     </div>
                 </div>
                 
-                <!-- Case Study 4 -->
+                <!-- Project 4 -->
                 <div class="project-item reveal">
-                    <img src="/api/placeholder/800/400" alt="Project 4" class="project-image">
+                    <img src="/api/placeholder/800/900" alt="Project 4" class="project-image">
                     <div class="project-content">
-                        <h3 class="project-title">E-commerce Personalization Engine</h3>
-                        <p class="project-category">Data Strategy • A/B Testing • Conversion Optimization</p>
-                        <p class="project-description">Developed a recommendation engine that increased average order value by 24% and improved conversion rates by 18% across multiple retail categories.</p>
-                        <a href="#" class="project-link">View Case Study</a>
+                        <h3 class="project-title">Project Four</h3>
+                        <p class="project-category">Full Stack Development</p>
+                        <a href="#" class="project-link">View Project</a>
                     </div>
                 </div>
             </div>
@@ -792,139 +605,164 @@
         <div class="container">
             <h2 class="section-title reveal">Skills & Expertise</h2>
             <div class="skills-container">
-                <!-- Strategy -->
+                <!-- Frontend -->
                 <div class="skill-category reveal">
-                    <h3>Product Strategy</h3>
+                    <h3>Frontend</h3>
                     <ul class="skill-list">
-                        <li>Product Vision & Roadmapping</li>
-                        <li>Market & Competitive Analysis</li>
-                        <li>User Personas & Journey Mapping</li>
-                        <li>Business Model Development</li>
-                        <li>OKRs & Goal Setting</li>
-                        <li>Go-to-Market Strategy</li>
-                        <li>Pricing Optimization</li>
+                        <li>HTML5 & CSS3</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>React.js</li>
+                        <li>Vue.js</li>
+                        <li>SCSS/SASS</li>
+                        <li>Responsive Design</li>
+                        <li>Tailwind CSS</li>
                     </ul>
                 </div>
                 
-                <!-- Execution -->
+                <!-- Backend -->
                 <div class="skill-category reveal">
-                    <h3>Product Execution</h3>
+                    <h3>Backend</h3>
                     <ul class="skill-list">
-                        <li>Agile Methodologies (Scrum, Kanban)</li>
-                        <li>Feature Prioritization</li>
-                        <li>Product Requirements Documentation</li>
-                        <li>Cross-functional Team Leadership</li>
-                        <li>Stakeholder Management</li>
-                        <li>Project Management</li>
-                        <li>Release Planning</li>
+                        <li>Node.js</li>
+                        <li>Express</li>
+                        <li>Python</li>
+                        <li>Django</li>
+                        <li>RESTful APIs</li>
+                        <li>MongoDB</li>
+                        <li>PostgreSQL</li>
                     </ul>
                 </div>
                 
-                <!-- Analytics -->
+                <!-- Design & Tools -->
                 <div class="skill-category reveal">
-                    <h3>Data & Analytics</h3>
+                    <h3>Design & Tools</h3>
                     <ul class="skill-list">
-                        <li>A/B Testing & Experimentation</li>
-                        <li>User Analytics & Behavior Analysis</li>
-                        <li>Funnel Optimization</li>
-                        <li>KPI Definition & Tracking</li>
-                        <li>SQL & Data Visualization</li>
-                        <li>User Research & Usability Testing</li>
-                        <li>Customer Feedback Analysis</li>
+                        <li>Figma</li>
+                        <li>Adobe XD</li>
+                        <li>Photoshop</li>
+                        <li>Git & GitHub</li>
+                        <li>Webpack</li>
+                        <li>VS Code</li>
+                        <li>CI/CD Workflows</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Approach section -->
-    <section id="approach">
+    <!-- Contact section -->
+    <section id="contact">
         <div class="container">
-            <h2 class="section-title reveal">My Product Approach</h2>
-            <div class="approach-grid">
-                <!-- Approach 1 -->
-                <div class="approach-item reveal">
-                    <div class="approach-icon">
-                        <i class="fas fa-bullseye"></i>
+            <h2 class="section-title reveal">Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <p>I'm currently available for freelance work and interesting project opportunities. If you'd like to work together or just want to say hello, feel free to reach out!</p>
+                    <div class="contact-links">
+                        <a href="mailto:hello@matthewchiu.com" class="contact-link">hello@matthewchiu.com</a>
+                        <a href="tel:+1234567890" class="contact-link">+1 (234) 567-890</a>
                     </div>
-                    <h3 class="approach-title">Problem-First Thinking</h3>
-                    <p class="approach-text">I start by deeply understanding the problem space before jumping to solutions. This includes rigorous user research, stakeholder interviews, and market analysis to ensure we're building the right product for the right audience.</p>
                 </div>
-                
-                <!-- Approach 2 -->
-                <div class="approach-item reveal">
-                    <div class="approach-icon">
-                        <i class="fas fa-chart-line"></i>
+                <form class="contact-form reveal">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" id="name" class="form-input" required>
                     </div>
-                    <h3 class="approach-title">Data-Driven Decisions</h3>
-                    <p class="approach-text">Every product decision is backed by data. I implement robust measurement frameworks and continuous testing cycles to validate assumptions, track performance, and make informed adjustments throughout the product lifecycle.</p>
-                </div>
-                
-                <!-- Approach 3 -->
-                <div class="approach-item reveal">
-                    <div class="approach-icon">
-                        <i class="fas fa-users"></i>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Your Email</label>
+                        <input type="email" id="email" class="form-input" required>
                     </div>
-                    <h3 class="approach-title">Collaborative Leadership</h3>
-                    <p class="approach-text">Great products are built by great teams. I foster environments where designers, engineers, and business stakeholders work together seamlessly, with clear communication channels and aligned incentives toward common goals.</p>
-                </div>
-                
-                <!-- Approach 4 -->
-                <div class="approach-item reveal">
-                    <div class="approach-icon">
-                        <i class="fas fa-rocket"></i>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Your Message</label>
+                        <textarea id="message" class="form-textarea" required></textarea>
                     </div>
-                    <h3 class="approach-title">Iterative Execution</h3>
-                    <p class="approach-text">I believe in shipping early and often. By breaking down complex products into manageable pieces, we can validate assumptions quickly, gather user feedback, and continuously refine our approach for maximum impact.</p>
-                </div>
-                
-                <!-- Approach 5 -->
-                <div class="approach-item reveal">
-                    <div class="approach-icon">
-                        <i class="fas fa-balance-scale"></i>
-                    </div>
-                    <h3 class="approach-title">Business Alignment</h3>
-                    <p class="approach-text">Every feature and initiative ties back to business objectives. I ensure product roadmaps directly support company strategy while balancing short-term wins with long-term vision to create sustainable product growth.</p>
-                </div>
-                
-                <!-- Approach 6 -->
-                <div class="approach-item reveal">
-                    <div class="approach-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3 class="approach-title">User-Centered Design</h3>
-                    <p class="approach-text">Users are at the heart of everything I build. Through continuous user research, usability testing, and empathetic design practices, I ensure products solve real pain points and deliver meaningful user experiences.</p>
-                </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
             </div>
         </div>
     </section>
     
-    <!-- Experience Timeline section -->
-    <section id="experience">
+    <!-- Footer -->
+    <footer>
         <div class="container">
-            <h2 class="section-title reveal">Professional Experience</h2>
-            <div class="timeline">
-                <!-- Experience 1 -->
-                <div class="timeline-item reveal">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2023 - Present</div>
-                        <h3 class="timeline-title">Senior Product Manager, Fintech Innovations Inc.</h3>
-                        <p class="timeline-text">Leading the consumer payments product suite with a focus on mobile solutions. Managed a cross-functional team of 15 to deliver features that increased transaction volume by 62% year-over-year.</p>
-                    </div>
-                </div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
+            </div>
+            <p class="footer-text">&copy; 2025 Matthew Chiu. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const links = document.querySelectorAll('a, button, input, textarea');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.classList.add('grow');
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                cursor.classList.remove('grow');
+            });
+        });
+        
+        // Scroll reveal animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
                 
-                <!-- Experience 2 -->
-                <div class="timeline-item reveal">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2020 - 2023</div>
-                        <h3 class="timeline-title">Product Manager, Enterprise Solutions Corp.</h3>
-                        <p class="timeline-text">Owned the B2B SaaS platform used by 200+ enterprise clients. Launched 4 major product initiatives that collectively generated $2.8M in new annual recurring revenue.</p>
-                    </div>
-                </div>
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', reveal);
+        reveal(); // Initial check
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
                 
-                <!-- Experience 3 -->
-                <div class="timeline-item reveal">
-                    <div class="timeline-content">
-                        <div class="timeline-date">2018 - 2020</div>
-                        <h3 class="timeline-title">Associate Product Manager, HealthTech Innovations</h3>
-                        <p class="timeline-text">Managed the patient engagement platform serving 5M+ users.
+                // Page transition effect
+                const pageTransition = document.querySelector('.page-transition');
+                pageTransition.classList.add('active');
+                
+                setTimeout(() => {
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    setTimeout(() => {
+                        pageTransition.classList.remove('active');
+                    }, 500);
+                }, 500);
+            });
+        });
+        
+        // Form submission (demo)
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! This is a demo form - in a real portfolio, this would send an email.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
