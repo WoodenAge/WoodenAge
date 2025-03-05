@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none; /* Hide the default cursor */
         }
         
         /* Base Styles */
@@ -269,6 +270,53 @@
             color: #3498db;
         }
         
+        /* Custom Cursor Styles */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #3498db;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease;
+        }
+        
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(52, 152, 219, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, border 0.2s ease;
+        }
+        
+        .cursor-hover.cursor-dot {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: #2980b9;
+        }
+        
+        .cursor-hover.cursor-outline {
+            width: 50px;
+            height: 50px;
+            border-color: rgba(52, 152, 219, 0.2);
+        }
+        
+        /* Hide custom cursor on mobile/touch devices */
+        @media (hover: none) and (pointer: coarse) {
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            
+            * {
+                cursor: auto !important;
+            }
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 768px) {
             nav ul {
@@ -451,8 +499,43 @@
         </div>
     </footer>
 
-    <!-- JavaScript for smooth scrolling -->
+    <!-- Custom cursor elements -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <!-- JavaScript for smooth scrolling and custom cursor -->
     <script>
+        // Custom cursor implementation
+        const cursorDot = document.querySelector(".cursor-dot");
+        const cursorOutline = document.querySelector(".cursor-outline");
+        
+        window.addEventListener("mousemove", function(e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            // Add a slight delay to the cursor outline for a trailing effect
+            setTimeout(() => {
+                cursorOutline.style.left = `${posX}px`;
+                cursorOutline.style.top = `${posY}px`;
+            }, 50);
+        });
+
+        // Handle cursor states for clickable elements
+        const clickables = document.querySelectorAll('a, button, input, textarea, .project-card');
+        clickables.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('cursor-hover');
+                cursorOutline.classList.add('cursor-hover');
+            });
+            element.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('cursor-hover');
+                cursorOutline.classList.remove('cursor-hover');
+            });
+        });
+        
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
