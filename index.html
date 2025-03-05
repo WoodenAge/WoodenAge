@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Red Square Hover Effect</title>
+    <title>Red Square LinkedIn Link</title>
     <style>
         body {
             display: flex;
@@ -19,19 +19,19 @@
             height: 100px;
             background-color: red;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0;
-            transition: font-size 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 4px;
         }
         
         .red-square:hover {
-            font-size: 50px;
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
-    <div class="red-square">🖕</div>
+    <a href="https://www.linkedin.com/in/matt-chiu/" target="_blank">
+        <div class="red-square"></div>
+    </a>
 </body>
 </html>
