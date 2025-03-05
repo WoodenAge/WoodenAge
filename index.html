@@ -3,554 +3,761 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matthew Chiu - Portfolio</title>
+    <title>Matthew Chiu</title>
     <style>
-        /* CSS Reset */
+        /* Base styles */
+        :root {
+            --background: #0f0f0f;
+            --text: #ffffff;
+            --accent: #f4ff83;
+            --secondary: #323232;
+            --transition: 0.5s ease;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: none; /* Hide the default cursor */
+            cursor: none;
         }
         
-        /* Base Styles */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 1100px;
+            width: 90%;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            position: relative;
         }
         
-        /* Header */
+        /* Custom cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: width 0.3s, height 0.3s;
+        }
+        
+        .cursor.grow {
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            mix-blend-mode: difference;
+        }
+        
+        /* Header styles */
         header {
-            background: #2c3e50;
-            color: #fff;
-            padding: 30px 0;
-            text-align: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
         }
         
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .header-content {
+            display: flex;
+            flex-direction: column;
         }
         
-        header p {
-            font-size: 1.2rem;
+        .name {
+            font-size: 4vw;
+            font-weight: 700;
+            margin-bottom: 2vh;
+        }
+        
+        .title {
+            font-size: 2vw;
+            font-weight: 400;
+            margin-bottom: 5vh;
+            color: rgba(255, 255, 255, 0.7);
         }
         
         /* Navigation */
         nav {
-            background: #34495e;
-            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 30px 0;
+            z-index: 100;
         }
         
-        nav ul {
+        .nav-content {
             display: flex;
-            justify-content: center;
-            list-style: none;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        nav ul li {
-            margin: 0 15px;
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
         }
         
-        nav ul li a {
-            color: #fff;
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            color: var(--text);
             text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
+            position: relative;
+            padding: 5px 0;
+            font-weight: 500;
         }
         
-        nav ul li a:hover {
-            color: #3498db;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width var(--transition);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
         }
         
         /* Sections */
         section {
-            padding: 60px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        section h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        
-        /* About */
-        .about-content {
+            padding: 15vh 0;
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .section-title {
+            font-size: 3vw;
+            margin-bottom: 10vh;
+            color: var(--accent);
+        }
+        
+        /* About section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
         }
         
         .about-text {
-            flex: 1;
-            min-width: 300px;
-            padding-right: 30px;
+            font-size: 1.2rem;
+            line-height: 1.8;
         }
         
-        .profile-img {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        .about-image {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            overflow: hidden;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 5px solid #3498db;
+            filter: grayscale(100%);
+            transition: filter var(--transition);
         }
         
-        /* Projects */
+        .about-image:hover img {
+            filter: grayscale(0%);
+        }
+        
+        /* Work section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
         }
         
-        .project-card {
-            background: #fff;
-            border-radius: 8px;
+        .project-item {
+            position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            height: 60vh;
         }
         
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .project-img {
+        .project-image {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
+            transition: transform 1s ease;
         }
         
-        .project-info {
+        .project-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            transform: translateY(100%);
+            transition: transform var(--transition);
         }
         
-        .project-info h3 {
+        .project-item:hover .project-content {
+            transform: translateY(0);
+        }
+        
+        .project-item:hover .project-image {
+            transform: scale(1.05);
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
             margin-bottom: 10px;
-            color: #2c3e50;
         }
         
-        .project-info p {
+        .project-category {
+            font-size: 0.9rem;
+            color: var(--accent);
             margin-bottom: 15px;
-            color: #666;
         }
         
         .project-link {
             display: inline-block;
-            padding: 8px 15px;
-            background: #3498db;
-            color: #fff;
+            color: var(--text);
             text-decoration: none;
-            border-radius: 4px;
-            transition: background 0.3s;
+            padding: 8px 20px;
+            border: 1px solid var(--text);
+            transition: all var(--transition);
         }
         
         .project-link:hover {
-            background: #2980b9;
+            background-color: var(--accent);
+            color: var(--background);
+            border-color: var(--accent);
         }
         
-        /* Skills */
+        /* Skills section */
         .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
         }
         
         .skill-category {
-            background: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: var(--secondary);
+            padding: 30px;
+            border-radius: 5px;
+            transition: transform var(--transition);
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-10px);
         }
         
         .skill-category h3 {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
         }
         
         .skill-list {
-            list-style-type: none;
+            list-style: none;
         }
         
         .skill-list li {
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .skill-list li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #3498db;
+        .skill-list li:last-child {
+            border-bottom: none;
         }
         
-        /* Contact */
+        /* Contact section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            padding: 30px 0;
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .contact-link {
+            display: inline-block;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.2rem;
+            transition: color var(--transition);
+        }
+        
+        .contact-link:hover {
+            color: var(--accent);
+        }
+        
         .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: var(--secondary);
+            border-radius: 5px;
         }
         
         .form-group {
             margin-bottom: 20px;
         }
         
-        .form-group label {
+        .form-label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
+            margin-bottom: 10px;
+            font-weight: 500;
         }
         
-        .form-group input, 
-        .form-group textarea {
+        .form-input, 
+        .form-textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 15px;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--text);
             font-size: 1rem;
+            font-family: inherit;
+            border-radius: 3px;
+            transition: border-color var(--transition);
         }
         
-        .form-group textarea {
-            height: 150px;
+        .form-input:focus, 
+        .form-textarea:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
         }
         
         .submit-btn {
             display: inline-block;
-            padding: 10px 20px;
-            background: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            padding: 15px 30px;
+            background-color: transparent;
+            color: var(--text);
+            border: 1px solid var(--text);
             font-size: 1rem;
-            transition: background 0.3s;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition);
         }
         
         .submit-btn:hover {
-            background: #2980b9;
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--background);
         }
         
         /* Footer */
         footer {
-            background: #2c3e50;
-            color: #fff;
+            padding: 50px 0;
             text-align: center;
-            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .social-links {
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
         }
         
-        .social-links a {
-            display: inline-block;
-            margin: 0 10px;
-            color: #fff;
+        .social-link {
+            color: var(--text);
             font-size: 1.5rem;
-            transition: color 0.3s;
+            transition: color var(--transition);
         }
         
-        .social-links a:hover {
-            color: #3498db;
+        .social-link:hover {
+            color: var(--accent);
         }
         
-        /* Custom Cursor Styles */
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #3498db;
-            border-radius: 50%;
+        .footer-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Scroll reveal animation */
+        .reveal {
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Page transitions */
+        .page-transition {
             position: fixed;
-            pointer-events: none;
-            z-index: 999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s ease;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--accent);
+            z-index: 9998;
+            transform: translateY(100%);
+            transition: transform 0.7s cubic-bezier(0.77, 0, 0.175, 1);
         }
         
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(52, 152, 219, 0.5);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 998;
-            transform: translate(-50%, -50%);
-            transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease, border 0.2s ease;
+        .page-transition.active {
+            transform: translateY(0);
         }
         
-        .cursor-hover.cursor-dot {
-            transform: translate(-50%, -50%) scale(1.5);
-            background-color: #2980b9;
+        /* Media queries */
+        @media (max-width: 992px) {
+            .name {
+                font-size: 6vw;
+            }
+            
+            .title {
+                font-size: 3vw;
+            }
+            
+            .section-title {
+                font-size: 5vw;
+            }
+            
+            .about-content,
+            .projects-grid,
+            .skills-container,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                height: 50vh;
+            }
+            
+            .project-item {
+                height: 40vh;
+            }
         }
         
-        .cursor-hover.cursor-outline {
-            width: 50px;
-            height: 50px;
-            border-color: rgba(52, 152, 219, 0.2);
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .name {
+                font-size: 8vw;
+            }
+            
+            .title {
+                font-size: 4vw;
+            }
+            
+            .section-title {
+                font-size: 7vw;
+            }
         }
         
-        /* Hide custom cursor on mobile/touch devices */
-        @media (hover: none) and (pointer: coarse) {
-            .cursor-dot, .cursor-outline {
+        /* For touch devices */
+        @media (hover: none) {
+            .cursor {
                 display: none;
             }
             
             * {
                 cursor: auto !important;
             }
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
             
-            nav ul li {
-                margin: 5px 0;
-            }
-            
-            .about-content {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-            
-            .about-text {
-                padding-right: 0;
-                margin-top: 30px;
-            }
-            
-            .profile-img {
-                margin-bottom: 20px;
+            .project-content {
+                transform: translateY(0);
+                opacity: 0.9;
             }
         }
     </style>
-    <!-- Font Awesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <div class="container">
-            <h1>Matthew Chiu</h1>
-            <p>Web Developer & Designer</p>
-        </div>
-    </header>
-
+    <!-- Custom cursor -->
+    <div class="cursor"></div>
+    
+    <!-- Page transition -->
+    <div class="page-transition"></div>
+    
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <div class="nav-content">
+                <a href="#" class="logo">MATTHEW CHIU</a>
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#work" class="nav-link">Work</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
         </div>
     </nav>
-
-    <!-- About Section -->
+    
+    <!-- Hero section -->
+    <header>
+        <div class="container">
+            <div class="header-content reveal">
+                <h1 class="name">Matthew Chiu</h1>
+                <p class="title">Web Developer & Designer</p>
+                <a href="#work" class="project-link">View My Work</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- About section -->
     <section id="about">
         <div class="container">
-            <h2>About Me</h2>
+            <h2 class="section-title reveal">About Me</h2>
             <div class="about-content">
-                <div class="about-text">
-                    <p>Hello! I'm Matthew, a passionate web developer and designer with a focus on creating intuitive, user-friendly experiences. I enjoy tackling complex problems and turning them into simple, beautiful solutions.</p>
-                    <p>With a background in both design and development, I bring a unique perspective to my work. I'm constantly learning and exploring new technologies to stay at the forefront of the industry.</p>
-                    <p>When I'm not coding, you can find me hiking, reading, or experimenting with new recipes in the kitchen.</p>
+                <div class="about-text reveal">
+                    <p>Hello! I'm Matthew, a passionate web developer and designer with a focus on creating beautiful, functional digital experiences that leave a lasting impression.</p>
+                    <p>I specialize in building modern, responsive websites and web applications that combine thoughtful design with clean, efficient code. My approach is driven by a dedication to both aesthetics and performance.</p>
+                    <p>With expertise in both design and development, I bring a unique perspective to each project, ensuring a seamless connection between visual concepts and technical implementation.</p>
                 </div>
-                <img src="/api/placeholder/250/250" alt="Matthew Chiu" class="profile-img">
+                <div class="about-image reveal">
+                    <img src="/api/placeholder/600/800" alt="Matthew Chiu">
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
+    
+    <!-- Work section -->
+    <section id="work">
         <div class="container">
-            <h2>My Projects</h2>
+            <h2 class="section-title reveal">Selected Work</h2>
             <div class="projects-grid">
                 <!-- Project 1 -->
-                <div class="project-card">
-                    <img src="/api/placeholder/400/200" alt="Project 1" class="project-img">
-                    <div class="project-info">
-                        <h3>Project Name 1</h3>
-                        <p>A brief description of the project, what technologies were used, and what problems it solves.</p>
+                <div class="project-item reveal">
+                    <img src="/api/placeholder/800/900" alt="Project 1" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">Project One</h3>
+                        <p class="project-category">Web Development / UI Design</p>
                         <a href="#" class="project-link">View Project</a>
                     </div>
                 </div>
                 
                 <!-- Project 2 -->
-                <div class="project-card">
-                    <img src="/api/placeholder/400/200" alt="Project 2" class="project-img">
-                    <div class="project-info">
-                        <h3>Project Name 2</h3>
-                        <p>A brief description of the project, what technologies were used, and what problems it solves.</p>
+                <div class="project-item reveal">
+                    <img src="/api/placeholder/800/900" alt="Project 2" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">Project Two</h3>
+                        <p class="project-category">Frontend Development</p>
                         <a href="#" class="project-link">View Project</a>
                     </div>
                 </div>
                 
                 <!-- Project 3 -->
-                <div class="project-card">
-                    <img src="/api/placeholder/400/200" alt="Project 3" class="project-img">
-                    <div class="project-info">
-                        <h3>Project Name 3</h3>
-                        <p>A brief description of the project, what technologies were used, and what problems it solves.</p>
+                <div class="project-item reveal">
+                    <img src="/api/placeholder/800/900" alt="Project 3" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">Project Three</h3>
+                        <p class="project-category">Web Design / UX</p>
+                        <a href="#" class="project-link">View Project</a>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-item reveal">
+                    <img src="/api/placeholder/800/900" alt="Project 4" class="project-image">
+                    <div class="project-content">
+                        <h3 class="project-title">Project Four</h3>
+                        <p class="project-category">Full Stack Development</p>
                         <a href="#" class="project-link">View Project</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Skills Section -->
+    
+    <!-- Skills section -->
     <section id="skills">
         <div class="container">
-            <h2>Skills & Expertise</h2>
+            <h2 class="section-title reveal">Skills & Expertise</h2>
             <div class="skills-container">
-                <!-- Frontend Skills -->
-                <div class="skill-category">
+                <!-- Frontend -->
+                <div class="skill-category reveal">
                     <h3>Frontend</h3>
                     <ul class="skill-list">
                         <li>HTML5 & CSS3</li>
                         <li>JavaScript (ES6+)</li>
                         <li>React.js</li>
-                        <li>Responsive Web Design</li>
-                        <li>CSS Frameworks (Bootstrap, Tailwind)</li>
+                        <li>Vue.js</li>
+                        <li>SCSS/SASS</li>
+                        <li>Responsive Design</li>
+                        <li>Tailwind CSS</li>
                     </ul>
                 </div>
                 
-                <!-- Backend Skills -->
-                <div class="skill-category">
+                <!-- Backend -->
+                <div class="skill-category reveal">
                     <h3>Backend</h3>
                     <ul class="skill-list">
                         <li>Node.js</li>
-                        <li>Express.js</li>
+                        <li>Express</li>
                         <li>Python</li>
+                        <li>Django</li>
                         <li>RESTful APIs</li>
-                        <li>Database Management</li>
+                        <li>MongoDB</li>
+                        <li>PostgreSQL</li>
                     </ul>
                 </div>
                 
-                <!-- Tools & Others -->
-                <div class="skill-category">
-                    <h3>Tools & Others</h3>
+                <!-- Design & Tools -->
+                <div class="skill-category reveal">
+                    <h3>Design & Tools</h3>
                     <ul class="skill-list">
-                        <li>Git & GitHub</li>
-                        <li>VS Code</li>
                         <li>Figma</li>
+                        <li>Adobe XD</li>
+                        <li>Photoshop</li>
+                        <li>Git & GitHub</li>
                         <li>Webpack</li>
-                        <li>Agile/Scrum Methodology</li>
+                        <li>VS Code</li>
+                        <li>CI/CD Workflows</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Contact Section -->
+    
+    <!-- Contact section -->
     <section id="contact">
         <div class="container">
-            <h2>Get In Touch</h2>
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
+            <h2 class="section-title reveal">Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <p>I'm currently available for freelance work and interesting project opportunities. If you'd like to work together or just want to say hello, feel free to reach out!</p>
+                    <div class="contact-links">
+                        <a href="mailto:hello@matthewchiu.com" class="contact-link">hello@matthewchiu.com</a>
+                        <a href="tel:+1234567890" class="contact-link">+1 (234) 567-890</a>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
+                <form class="contact-form reveal">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" id="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="form-label">Your Email</label>
+                        <input type="email" id="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">Your Message</label>
+                        <textarea id="message" class="form-textarea" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
         </div>
     </section>
-
+    
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
             </div>
-            <p>&copy; 2025 Matthew Chiu. All rights reserved.</p>
+            <p class="footer-text">&copy; 2025 Matthew Chiu. All rights reserved.</p>
         </div>
     </footer>
-
-    <!-- Custom cursor elements -->
-    <div class="cursor-dot" id="cursor-dot"></div>
-    <div class="cursor-outline" id="cursor-outline"></div>
-
-    <!-- JavaScript for smooth scrolling and custom cursor -->
+    
     <script>
-        // Custom cursor implementation
-        const cursorDot = document.querySelector(".cursor-dot");
-        const cursorOutline = document.querySelector(".cursor-outline");
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const links = document.querySelectorAll('a, button, input, textarea');
         
-        window.addEventListener("mousemove", function(e) {
-            const posX = e.clientX;
-            const posY = e.clientY;
-            
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
-            
-            // Add a slight delay to the cursor outline for a trailing effect
-            setTimeout(() => {
-                cursorOutline.style.left = `${posX}px`;
-                cursorOutline.style.top = `${posY}px`;
-            }, 50);
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
-
-        // Handle cursor states for clickable elements
-        const clickables = document.querySelectorAll('a, button, input, textarea, .project-card');
-        clickables.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                cursorDot.classList.add('cursor-hover');
-                cursorOutline.classList.add('cursor-hover');
+        
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.classList.add('grow');
             });
-            element.addEventListener('mouseleave', () => {
-                cursorDot.classList.remove('cursor-hover');
-                cursorOutline.classList.remove('cursor-hover');
+            
+            link.addEventListener('mouseleave', () => {
+                cursor.classList.remove('grow');
             });
         });
         
-        document.querySelectorAll('nav a').forEach(anchor => {
+        // Scroll reveal animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', reveal);
+        reveal(); // Initial check
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+                // Page transition effect
+                const pageTransition = document.querySelector('.page-transition');
+                pageTransition.classList.add('active');
                 
-                window.scrollTo({
-                    top: targetElement.offsetTop - 70,
-                    behavior: 'smooth'
-                });
+                setTimeout(() => {
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    setTimeout(() => {
+                        pageTransition.classList.remove('active');
+                    }, 500);
+                }, 500);
             });
         });
-
-        // Basic form handling (you'll need a backend to actually send emails)
+        
+        // Form submission (demo)
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Thank you for your message! This is a demo form - in a real portfolio, this would send an email.');
