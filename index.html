@@ -300,7 +300,7 @@
             // Game variables
             let board = [];
             let score = 0;
-            let bestScore = localStorage.getItem('2048-best-score') || 0;
+            let bestScore = 0; // Instead of using localStorage, just track in-session
             let gameOver = false;
             let won = false;
             let keepPlaying = false;
@@ -316,9 +316,6 @@
             const tryAgainButton2 = document.getElementById('try-again-button-2');
             const winMessage = document.getElementById('win-message');
             const gameOverMessage = document.getElementById('game-over-message');
-            
-            // Update display elements
-            bestScoreElement.textContent = bestScore;
             
             // Initialize game
             initializeGame();
@@ -435,6 +432,7 @@
             function handleKeyDown(e) {
                 if (animating || gameOver) return;
                 
+                animating = true; // Set animating at the start
                 let moved = false;
                 
                 switch (e.key) {
@@ -455,6 +453,7 @@
                         moved = moveRight();
                         break;
                     default:
+                        animating = false; // Reset if not a movement key
                         return; // Exit for other keys
                 }
                 
@@ -472,12 +471,14 @@
                         // Movement complete
                         animating = false;
                     }, 150);
+                } else {
+                    // Important fix: reset animating flag even when no movement happens
+                    animating = false;
                 }
             }
             
             // Move tiles up
             function moveUp() {
-                animating = true;
                 let moved = false;
                 
                 for (let col = 0; col < 4; col++) {
@@ -507,7 +508,6 @@
                                 if (score > bestScore) {
                                     bestScore = score;
                                     bestScoreElement.textContent = bestScore;
-                                    localStorage.setItem('2048-best-score', bestScore);
                                 }
                                 
                                 moved = true;
@@ -521,7 +521,6 @@
             
             // Move tiles down
             function moveDown() {
-                animating = true;
                 let moved = false;
                 
                 for (let col = 0; col < 4; col++) {
@@ -551,7 +550,6 @@
                                 if (score > bestScore) {
                                     bestScore = score;
                                     bestScoreElement.textContent = bestScore;
-                                    localStorage.setItem('2048-best-score', bestScore);
                                 }
                                 
                                 moved = true;
@@ -565,7 +563,6 @@
             
             // Move tiles left
             function moveLeft() {
-                animating = true;
                 let moved = false;
                 
                 for (let row = 0; row < 4; row++) {
@@ -595,7 +592,6 @@
                                 if (score > bestScore) {
                                     bestScore = score;
                                     bestScoreElement.textContent = bestScore;
-                                    localStorage.setItem('2048-best-score', bestScore);
                                 }
                                 
                                 moved = true;
@@ -609,7 +605,6 @@
             
             // Move tiles right
             function moveRight() {
-                animating = true;
                 let moved = false;
                 
                 for (let row = 0; row < 4; row++) {
@@ -639,7 +634,6 @@
                                 if (score > bestScore) {
                                     bestScore = score;
                                     bestScoreElement.textContent = bestScore;
-                                    localStorage.setItem('2048-best-score', bestScore);
                                 }
                                 
                                 moved = true;
