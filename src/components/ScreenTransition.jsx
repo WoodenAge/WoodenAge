@@ -11,7 +11,7 @@ const ScreenTransition = ({ onTransitionComplete }) => {
         onTransitionComplete();
         // Reset to home page after link opens
         window.location.href = '/';
-      }, 500);
+      }, 325);
     }, 2500);
     
     return () => clearTimeout(timer);
